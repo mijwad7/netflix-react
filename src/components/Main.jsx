@@ -36,7 +36,7 @@ const Main = () => {
                 <button className='border bg-gray-300 text-black border-gray-300 py-2 px-5 ml-4'>Watch Later</button>
               </div>
               <p className="text-gray-400 text-sm">Released: {movie.Released}</p>
-              <p className="w-full hidden md:block md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200">{movie.Plot}</p>
+              <p className="w-[50%] md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200">{movie.Plot}</p>
             </div>
           </div>
         ) : (

@@ -30,6 +30,7 @@ const horrorMovies = [
 const actionMovies = [
   'tt7286456', // Joker
   'tt0325980', // Spider-Man: No Way Home
+  'tt0369610', // The Dark Knight Rises
   'tt1860357', // Mad Max: Fury Road
   'tt0208092', // The Matrix
   'tt4154796', // Avengers: Endgame
@@ -37,7 +38,6 @@ const actionMovies = [
   'tt2488496', // Star Wars: The Force Awakens
   'tt0848228', // The Avengers
   'tt1375666', // Inception
-  'tt0369610', // The Dark Knight Rises
 ];
 
 const comedyMovies = [

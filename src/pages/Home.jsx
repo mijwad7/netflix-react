@@ -8,9 +8,9 @@ const Home = () => {
     <>
         <Main />
         <Row rowID='1' title='Top Rated Movies' moviesList={topRatedMovies} />
-        <Row rowID='2' title='Horror Movies' moviesList={horrorMovies} />
-        <Row rowID='3' title='Action Movies' moviesList={actionMovies} />
-        <Row rowID='4' title='Comedy Movies' moviesList={comedyMovies} />
+        <Row rowID='2' title='Action Movies' moviesList={actionMovies} />
+        <Row rowID='3' title='Comedy Movies' moviesList={comedyMovies} />
+        <Row rowID='4' title='Horror Movies' moviesList={horrorMovies} />
     </>
   )
 }
