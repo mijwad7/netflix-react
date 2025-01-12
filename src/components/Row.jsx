@@ -2,12 +2,19 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaHeart, FaRegHeart} from 'react-icons/fa';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import { UserAuth } from '../context/AuthContext';
+import { db } from '../firebase';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 
 const key = '257dee3e';
 
 const Row = ({ title, moviesList, rowID }) => {
   const [movies, setMovies] = useState([]);
   const [like, setLike] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const { user } = UserAuth();
+  const userDoc = doc(db, 'users', `${user?.email}`);
+
 
   useEffect(() => {
     // Fetch data for each movie
@@ -29,6 +36,26 @@ const Row = ({ title, moviesList, rowID }) => {
     }
   }, [moviesList]);
 
+  const saveMovie = async (movie) => {
+    if (user?.email) {
+      try {
+        await updateDoc(userDoc, {
+          savedShows: arrayUnion({
+            id: movie.imdbID,
+            title: movie.Title,
+            img: movie.Poster,
+          }),
+        });
+        alert(`${movie.Title} has been saved to your favorites!`);
+      } catch (error) {
+        console.error('Error saving movie:', error);
+      }
+    } else {
+      alert('Please log in to save a movie');
+    }
+  };
+
+
   const slideLeft = () => {
     const slider = document.getElementById('slider' + rowID);
     slider.scrollLeft = slider.scrollLeft - 500;
@@ -49,7 +76,7 @@ const Row = ({ title, moviesList, rowID }) => {
                     <img className="w-full h-auto block" src={movie.Poster.replace('SX300', 'SX800')} alt={movie.Title} />
                     <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white'>
                         <p className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>{movie.Title}</p>
-                        <p>
+                        <p onClick={() => saveMovie(movie)}>
                             {like ? (
                                 <FaHeart className='absolute top-4 left-4 text-red-500' />
                             ) : (

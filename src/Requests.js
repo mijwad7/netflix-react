@@ -6,7 +6,6 @@ const BannerMovieURL = `https://www.omdbapi.com/?apikey=${key}&i=tt13622970`;
 const topRatedMovies = [
   'tt4154796', // Avengers: Endgame
   'tt2975590', // Batman v Superman
-  'tt0120338', // Titanic
   'tt2488496', // Star Wars: The Force Awakens
   'tt0848228', // The Avengers
   'tt1375666', // Inception
@@ -14,6 +13,7 @@ const topRatedMovies = [
   'tt0111161', // The Shawshank Redemption
   'tt0068646', // The Godfather
   'tt0468569', // The Dark Knight
+  'tt0120338', // Titanic
 ];
 
 const horrorMovies = [
