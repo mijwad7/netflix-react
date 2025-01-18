@@ -13,31 +13,45 @@ const AuthContext = createContext();
 export function AuthContexProvider({ children }) {
   const [user, setUser] = useState({});
 
-  function signUp(email, password) {
-    createUserWithEmailAndPassword(auth, email, password);
-    setDoc(doc(db, 'users', email), {
-      savedShows: []
-    })
+  async function signUp(email, password) {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const newUser = userCredential.user;
+
+      // Store user info in Firestore
+      await setDoc(doc(db, "users", newUser.uid), {
+        email: newUser.email,
+        savedShows: [],
+      });
+
+      setUser(newUser); // Set the user state after signup
+    } catch (error) {
+      console.error("Signup error:", error.message);
+    }
   }
 
   function logIn(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
   }
 
-  function logOut(){
+  function logOut() {
     return signOut(auth);
   }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-    })
+      setUser(currentUser);
+    });
     return () => {
-        unsubscribe();
-    }
-  })
+      unsubscribe();
+    };
+  });
 
-  return <AuthContext.Provider value={{ signUp, logIn, logOut, user }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ signUp, logIn, logOut, user }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function UserAuth() {
